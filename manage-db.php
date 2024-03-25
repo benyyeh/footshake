@@ -84,10 +84,11 @@ function createTables()
     CREATE TABLE Job_Posting (
         id INT AUTO_INCREMENT PRIMARY KEY,
         location VARCHAR(255),
-        app_link VARCHAR(255),
+        app_link VARCHAR(1012),
         role VARCHAR(255),
         company_id INT,
         date_posted DATE,
+        role_type VARCHAR(255),
         FOREIGN KEY (company_id) REFERENCES Company(id)
     );
     
