@@ -48,7 +48,7 @@ function insertJobPosting($conn, $location, $app_link, $role, $company_id, $date
     }
 }
 
-
+$count = 0;
 foreach ($data as $posting) {
     // Insert data into the Company table and get the auto-generated company ID
     // echo"insert company success";
@@ -56,6 +56,9 @@ foreach ($data as $posting) {
     if ($posting['active'] == TRUE){
         $company_id = insertCompany($conn, $posting['company_name']);
         insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']));
+        $count++;
+        echo"<p>Added entry. Entries: $count</p>";
+        flush();
     }
     // echo"insert job posting sucess";
     // For simplicity, we're not inserting data into the Internship_Posting and New_Grad_Posting tables as their attributes are not available in the JSON

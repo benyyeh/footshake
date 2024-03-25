@@ -151,6 +151,7 @@ function createTables(){
 
 ?>
 
+<h3>Select an option</h3>
 <form method="post">
     <input type="submit" name="dropTables" value="Drop Tables" onclick="return confirm('Are you sure you want to drop all tables?');" />
     <input type="submit" name="emptyTables" value="Empty Tables" onclick="return confirm('Are you sure you want to empty all tables?');" />
