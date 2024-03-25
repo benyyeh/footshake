@@ -1,32 +1,8 @@
 <?php
+require ("connect-db.php");  
+?>
 
-// Database connection parameters
-$username = 'jlz8fv';
-$password = 'Spring2024';
-$host = 'mysql01.cs.virginia.edu';
-$dbname = 'jlz8fv';
-$dsn = "mysql:host=$host;dbname=$dbname";
-////////////////////////////////////////////
-
-/** connect to the database **/
-try {
-    //  $db = new PDO("mysql:host=$hostname;dbname=db-demo", $username, $password);
-    $conn = new PDO($dsn, $username, $password);
-
-    // dispaly a message to let us know that we are connected to the database 
-
-    echo "<p>You are connected to the database -- host=$host</p>";
-} catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
-{
-    // Call a method from any object, use the object's name followed by -> and then method's name
-    // All exception objects provide a getMessage() method that returns the error message 
-    $error_message = $e->getMessage();
-    echo "<p>An error occurred while connecting to the database: $error_message </p>";
-} catch (Exception $e)       // handle any type of exception
-{
-    $error_message = $e->getMessage();
-    echo "<p>Error message: $error_message </p>";
-}
+<?php
 
 // Path to the JSON file
 $jsonFile = 'data/internships.json';
@@ -72,15 +48,20 @@ function insertJobPosting($conn, $location, $app_link, $role, $company_id, $date
     }
 }
 
-// Loop through each JSON object and insert data into the database
+
 foreach ($data as $posting) {
     // Insert data into the Company table and get the auto-generated company ID
-    $company_id = insertCompany($conn, $posting['company_name']);
     // echo"insert company success";
     // Insert data into the Job_Posting table
-    insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']));
+    if ($posting['active'] == TRUE){
+        $company_id = insertCompany($conn, $posting['company_name']);
+        insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']));
+    }
     // echo"insert job posting sucess";
     // For simplicity, we're not inserting data into the Internship_Posting and New_Grad_Posting tables as their attributes are not available in the JSON
 }
+
+echo "<p>All data has been populated successfully.</p>";
+
 
 ?>
