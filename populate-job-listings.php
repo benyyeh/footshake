@@ -3,23 +3,44 @@ require ("connect-db.php");
 ?>
 
 <?php
-
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 // Path to the JSON file
-$jsonFile = 'data/internships.json';
+$jsonInternships = 'data/internships.json';
 
 // Read the JSON file
-$jsonData = file_get_contents($jsonFile);
+$internshipJsonData = file_get_contents($jsonInternships);
 
 // Check if the JSON data was successfully retrieved
-if ($jsonData === false) {
+if ($internshipJsonData === false) {
     die ("Error: Unable to read the JSON file.");
 }
 
 // Decode JSON data
-$data = json_decode($jsonData, true);
+$internshipData = json_decode($internshipJsonData, true);
 
 // Check if JSON decoding was successful
-if ($data === null) {
+if ($internshipData === null) {
+    die ("Error: Unable to parse JSON data.");
+}
+
+// NEW GRAD
+// Path to the JSON file
+$jsonNewGrad = 'data/new_grad.json';
+
+// Read the JSON file
+$newGradJsonData = file_get_contents($jsonNewGrad);
+
+// Check if the JSON data was successfully retrieved
+if ($newGradJsonData === false) {
+    die ("Error: Unable to read the JSON file.");
+}
+
+// Decode JSON data
+$newGradData = json_decode($newGradJsonData, true);
+
+// Check if JSON decoding was successful
+if ($newGradData === null) {
     die ("Error: Unable to parse JSON data.");
 }
 
@@ -40,31 +61,92 @@ function insertCompany($conn, $company_name)
 
 
 // Function to insert data into Job_Posting table
-function insertJobPosting($conn, $location, $app_link, $role, $company_id, $date_posted)
+// function insertJobPosting($conn, $location, $app_link, $role, $company_id, $date_posted)
+// {
+//     $sql = "INSERT INTO Job_Posting (location, app_link, role, company_id, date_posted) VALUES ('$location', '$app_link', '$role', $company_id, '$date_posted')";
+//     if ($conn->query($sql) === FALSE) {
+//         echo "Error: " . $sql . "<br>" . $conn->error;
+//     }
+// }
+function insertJobPosting($conn, $location, $app_link, $role, $company_id, $date_posted, $role_type)
 {
-    $sql = "INSERT INTO Job_Posting (location, app_link, role, company_id, date_posted) VALUES ('$location', '$app_link', '$role', $company_id, '$date_posted')";
+    try {
+        // Prepare the SQL query
+        $sql = "INSERT INTO Job_Posting (location, app_link, role, company_id, date_posted, role_type) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        
+        // Bind parameters
+        $stmt->bindParam(1, $location);
+        $stmt->bindParam(2, $app_link);
+        $stmt->bindParam(3, $role);
+        $stmt->bindParam(4, $company_id);
+        $stmt->bindParam(5, $date_posted);
+        $stmt->bindParam(6, $role_type);
+        
+        // Execute the prepared statement
+        if ($stmt->execute()) {
+            // Get the last inserted ID
+            $post_id = $conn->lastInsertId();
+            // Return the post_id
+            return $post_id;
+        } else {
+            // If there is an error, output the error message
+            echo "Error: " . $stmt->errorInfo()[2];
+            // Return null to indicate failure
+            return null;
+        }
+    } catch (PDOException $e) {
+        // If there is an exception, output the error message
+        echo "Error: " . $e->getMessage();
+        // Return null to indicate failure
+        return null;
+    }
+}
+
+function insertInternshipPosting($conn, $post_id, $sponsorship)
+{
+    $sql = "INSERT INTO Internship_Posting (post_id, sponsorship_status) VALUES ('$post_id', '$sponsorship')";
     if ($conn->query($sql) === FALSE) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
 
-$count = 0;
-foreach ($data as $posting) {
-    // Insert data into the Company table and get the auto-generated company ID
-    // echo"insert company success";
-    // Insert data into the Job_Posting table
-    if ($posting['active'] == TRUE){
+function insertNewGradPosting($conn, $post_id, $job_type)
+{
+    $sql = "INSERT INTO New_Grad_Posting (post_id, job_type) VALUES ('$post_id', '$job_type')";
+    if ($conn->query($sql) === FALSE) {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// POPULATE INTERNSHIPS
+$icount = 0;
+foreach ($internshipData as $posting) {
+    if ($posting['active']){
         $company_id = insertCompany($conn, $posting['company_name']);
-        insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']));
-        $count++;
-        echo"<p>Added entry. Entries: $count</p>";
+        $post_id = insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']), 'I');
+        insertInternshipPosting( $conn, $post_id, $posting['sponsorship'] );
+        $icount++;
+        echo"<p>Added entry. Entries: $icount</p>";
         flush();
     }
-    // echo"insert job posting sucess";
-    // For simplicity, we're not inserting data into the Internship_Posting and New_Grad_Posting tables as their attributes are not available in the JSON
+
+}
+
+// POPULATE NEW GRADS
+$ngcount = 0;
+foreach ($newGradData as $posting) {
+    if ($posting['active']){
+        $company_id = insertCompany($conn, $posting['company_name']);
+        $post_id = insertJobPosting($conn, $posting['locations'][0], $posting['url'], $posting['title'], $company_id, date('Y-m-d', $posting['date_posted']), 'NG');
+        $job_type = explode(' ', $posting['title'])[0];
+        insertNewGradPosting($conn, $post_id, $job_type);
+        $ngcount++;
+        echo"<p>Added entry. Entries: $ngcount</p>";
+        flush();
+    }
 }
 
 echo "<p>All data has been populated successfully.</p>";
-
 
 ?>
