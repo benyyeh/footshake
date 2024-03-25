@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Password is correct, start user session
             $_SESSION['user_id'] = $user['id']; // Store user id in session
             $_SESSION['email'] = $user['email']; // Store email in session
-            header("Location: user_dashboard.php"); // Redirect to a logged-in page
+            header("Location: user_info.php"); // Redirect to a logged-in page
             exit();
         } else {
             echo "Incorrect password.";

@@ -111,7 +111,6 @@ function createTables()
         id INT AUTO_INCREMENT PRIMARY KEY,
         password VARCHAR(255)
     );
-    
         CREATE TABLE Users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
