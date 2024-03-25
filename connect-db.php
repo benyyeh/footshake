@@ -1,7 +1,7 @@
 <?php
 
 // Database connection parameters
-$username = 'jlz8fv';
+$email = 'jlz8fv';
 $password = 'Spring2024';
 $host = 'mysql01.cs.virginia.edu';
 $dbname = 'jlz8fv';
@@ -11,7 +11,7 @@ $dsn = "mysql:host=$host;dbname=$dbname";
 /** connect to the database **/
 try {
     //  $db = new PDO("mysql:host=$hostname;dbname=db-demo", $username, $password);
-    $conn = new PDO($dsn, $username, $password);
+    $conn = new PDO($dsn, $email, $password);
 
     // dispaly a message to let us know that we are connected to the database 
     echo"<p>Succesfully connected to database</p>";

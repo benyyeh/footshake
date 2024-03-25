@@ -1,30 +1,31 @@
 <?php
-require ("connect-db.php");  
+require ("connect-db.php");
 ?>
 
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['dropTables'])) {
+    if (isset ($_POST['dropTables'])) {
         dropAllTables();
         echo "<p>Tables dropped successfully.</p>";
-    } elseif (isset($_POST['createTables'])) {
+    } elseif (isset ($_POST['createTables'])) {
         createTables();
         echo "<p>Tables created successfully.</p>";
-    }elseif (isset($_POST['emptyTables'])) {
+    } elseif (isset ($_POST['emptyTables'])) {
         emptyTables();
         echo "<p>Tables emptied successfully.</p>";
     }
 }
 
 
-function dropAllTables() {
+function dropAllTables()
+{
     global $conn;
     try {
         // Temporarily disable foreign key checks
         $conn->exec("SET FOREIGN_KEY_CHECKS=0;");
-        $query = 
-        "USE jlz8fv;
+        $query =
+            "USE jlz8fv;
         DROP TABLE IF EXISTS Company, Job_Posting, Internship_Posting, 
                                 New_Grad_Posting, Users, Application, 
                                 Skills, User_Skill, Account, Anonymous_Feedback;";
@@ -36,22 +37,23 @@ function dropAllTables() {
     }
 }
 
-function emptyTables() {
+function emptyTables()
+{
     global $conn;
     try {
         // Begin transaction
         $conn->beginTransaction();
         $conn->exec("SET FOREIGN_KEY_CHECKS=0;");
         $tablesToEmpty = [
-            'Company', 
-            'Job_Posting', 
-            'Internship_Posting', 
-            'New_Grad_Posting', 
-            'Users', 
-            'Application', 
-            'Skills', 
-            'User_Skill', 
-            'Account', 
+            'Company',
+            'Job_Posting',
+            'Internship_Posting',
+            'New_Grad_Posting',
+            'Users',
+            'Application',
+            'Skills',
+            'User_Skill',
+            'Account',
             'Anonymous_Feedback'
         ];
 
@@ -69,16 +71,16 @@ function emptyTables() {
     }
 }
 
-function createTables(){
+function createTables()
+{
     global $conn;
     $query = "USE jlz8fv;
 
     CREATE TABLE Company (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        company_name VARCHAR(255),
-        company_type VARCHAR(255)
-    );
-    
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            company_name VARCHAR(255),
+            company_type VARCHAR(255)
+    );   
     CREATE TABLE Job_Posting (
         id INT AUTO_INCREMENT PRIMARY KEY,
         location VARCHAR(255),
@@ -104,20 +106,26 @@ function createTables(){
         avg_salary DECIMAL(10,2),
         FOREIGN KEY (post_id) REFERENCES Job_Posting(id)
     );
+        CREATE TABLE Account (
+        email VARCHAR(255),
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        password VARCHAR(255)
+    );
     
-    CREATE TABLE Users (
+        CREATE TABLE Users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
         DOB DATE,
-        school VARCHAR(255)
+        school VARCHAR(255),
+        user_id INT,
+        FOREIGN KEY (user_id) REFERENCES Account(id)
     );
-    
     CREATE TABLE Application (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT,
         post_id INT,
         status VARCHAR(50),
-        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (user_id) REFERENCES Account(id),
         FOREIGN KEY (post_id) REFERENCES Job_Posting(id)
     );
     
@@ -130,21 +138,16 @@ function createTables(){
         user_id INT,
         skill_id INT,
         PRIMARY KEY (user_id, skill_id),
-        FOREIGN KEY (user_id) REFERENCES Users(id),
+        FOREIGN KEY (user_id) REFERENCES Account(id),
         FOREIGN KEY (skill_id) REFERENCES Skills(id)
     );
     
-    CREATE TABLE Account (
-        email VARCHAR(255) PRIMARY KEY,
-        user_id INT,
-        password VARCHAR(255),
-        FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-    );
     
     CREATE TABLE Anonymous_Feedback (
         Id INT AUTO_INCREMENT PRIMARY KEY,
         description TEXT
-    );";
+    );
+    ";
     $statement = $conn->prepare($query);
     $statement->execute();
 }
@@ -153,7 +156,9 @@ function createTables(){
 
 <h3>Select an option</h3>
 <form method="post">
-    <input type="submit" name="dropTables" value="Drop Tables" onclick="return confirm('Are you sure you want to drop all tables?');" />
-    <input type="submit" name="emptyTables" value="Empty Tables" onclick="return confirm('Are you sure you want to empty all tables?');" />
+    <input type="submit" name="dropTables" value="Drop Tables"
+        onclick="return confirm('Are you sure you want to drop all tables?');" />
+    <input type="submit" name="emptyTables" value="Empty Tables"
+        onclick="return confirm('Are you sure you want to empty all tables?');" />
     <input type="submit" name="createTables" value="Create Tables" />
 </form>
