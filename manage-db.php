@@ -93,17 +93,13 @@ function createTables()
     
     CREATE TABLE Internship_Posting (
         post_id INT PRIMARY KEY,
-        intern_type VARCHAR(255),
-        start_month VARCHAR(255),
-        end_month VARCHAR(255),
-        avg_salary DECIMAL(10,2),
+        sponsorship_status VARCHAR(255),
         FOREIGN KEY (post_id) REFERENCES Job_Posting(id)
     );
     
     CREATE TABLE New_Grad_Posting (
         post_id INT AUTO_INCREMENT PRIMARY KEY,
         job_type VARCHAR(255),
-        avg_salary DECIMAL(10,2),
         FOREIGN KEY (post_id) REFERENCES Job_Posting(id)
     );
         CREATE TABLE Account (
