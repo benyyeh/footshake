@@ -75,6 +75,7 @@ function createTables()
 {
     global $conn;
     $query = "USE jlz8fv;
+SET GLOBAL innodb_strict_mode = ON;
 
     CREATE TABLE Company (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -112,6 +113,8 @@ function createTables()
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255),
         DOB DATE,
+	CONSTRAINT legal_age
+		  CHECK (DOB<'2006-01-01'),
         school VARCHAR(255),
         user_id INT,
         FOREIGN KEY (user_id) REFERENCES Account(id)
@@ -143,6 +146,18 @@ function createTables()
         Id INT AUTO_INCREMENT PRIMARY KEY,
         description TEXT
     );
+
+    DELIMITER $$
+
+CREATE PROCEDURE SelectAllJobs (IN parameter_location VARCHAR(255))
+    MODIFIES SQL DATA
+BEGIN
+    SELECT * FROM Job_Posting WHERE `location` = parameter_location;
+END $$
+
+DELIMITER ;
+
+    
     ";
     $statement = $conn->prepare($query);
     $statement->execute();
