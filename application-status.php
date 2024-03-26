@@ -15,8 +15,8 @@ require("connect-db.php");
 <body>
     <h1>User and Post Information</h1>
     <div id="userInfo">
-        <p><strong>User ID:</strong> <span id="userId"> Loading...</span></p>
-        <p><strong>Post ID:</strong> <span id="postId">Loading...</span></p>
+        <p><strong>User ID:</strong> <span id="userId">$user['id']</span></p>
+        <p><strong>Post ID:</strong> <span id="postId">$post_id</span></p>
         <p><strong>Status:</strong> <span id="status">Loading...</span></p>
     </div>
 
