@@ -17,7 +17,7 @@ require("connect-db.php");
     <div id="userInfo">
         <p><strong>User ID:</strong> <span id="userId">$user['id']</span></p>
         <p><strong>Post ID:</strong> <span id="postId">$post_id</span></p>
-        <p><strong>Status:</strong> <span id="status">Loading...</span></p>
+        <p><strong>Status:</strong> <span id="status">Delievered!</span></p>
     </div>
 
 </body>
