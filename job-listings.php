@@ -16,85 +16,8 @@ $jobPostings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Job Listings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-
-        .top-bar {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        h1 {
-            margin: 0;
-            text-align: center;
-        }
-
-        .user-info-btn {
-            background-color: #007bff;
-            color: #fff;
-            border: 1px solid #fff; /* White border */
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .user-info-btn:hover {
-            background-color: #0056b3;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            width: 80%;
-            margin: auto;
-        }
-
-        li {
-            background-color: #fff;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        li:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 15px;
-        }
-
-        a:hover {
-            background-color: #f0f0f0;
-        }
-
-        .job-info {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .job-location {
-            color: #777;
-        }
-
-        .date-posted {
-            color: #777;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/job-listings.css">
 </head>
 <body>
     <!-- Top bar -->
