@@ -38,13 +38,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-    <h2>Register</h2>
-    <form action="register.php" method="post">
-        Email: <input type="email" name="email" required><br>
-        Password: <input type="password" name="password" required><br>
-        <input type="submit" value="Register">
-    </form>
+    <div class="container">
+        <h2>Register</h2>
+        <form action="register.php" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="email" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" required><br>
+            <input type="submit" value="Register">
+        </form>
+        <?php if (isset($registrationMessage)): ?>
+            <p class="success-message"><?= $registrationMessage ?></p>
+        <?php endif; ?>
+        <a href="login.php" class="login-link">Login here</a>
+    </div>
 </body>
 </html>
+
+

@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<p>Tables dropped successfully.</p>";
     } elseif (isset ($_POST['createTables'])) {
         createTables();
-        echo "<p>Tables created successfully.</p>";
     } elseif (isset ($_POST['emptyTables'])) {
         emptyTables();
         echo "<p>Tables emptied successfully.</p>";
@@ -73,9 +72,9 @@ function emptyTables()
 
 function createTables()
 {
+    echo"creating tables";
     global $conn;
     $query = "USE jlz8fv;
-SET GLOBAL innodb_strict_mode = ON;
 
     CREATE TABLE Company (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -159,8 +158,17 @@ DELIMITER ;
 
     
     ";
-    $statement = $conn->prepare($query);
-    $statement->execute();
+
+    try{
+        $statement = $conn->prepare($query);
+        $statement->execute();
+        echo "<p>Tables created successfully.</p>";
+    }
+    catch (PDOException $e) {
+        $conn->rollBack() ;
+        echo "<p>Error creating tables: " . $e->getMessage() . "</p>";
+
+    }
 }
 
 ?>

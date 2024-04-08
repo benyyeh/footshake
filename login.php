@@ -1,5 +1,5 @@
 <?php
-require ("connect-db.php");  
+require("connect-db.php");
 ?>
 
 <?php
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':email', $email);
     $stmt->execute();
-    
+
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         // Verify the password
@@ -28,16 +28,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: user_info.php"); // Redirect to a logged-in page
             exit();
         } else {
-            echo "Incorrect password.";
+            $errorMessage = "Incorrect password.";
         }
     } else {
-        echo "Incorrect email";
+        $errorMessage = "Incorrect email";
     }
 }
 ?>
 
-<form method="post" action="login.php">
-    email: <input type="text" name="email" required>
-    Password: <input type="password" name="password" required>
-    <input type="submit" value="Login">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="post" action="login.php">
+            <label for="email">Email:</label><br>
+            <input type="text" name="email" id="email" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+        <?php if (isset($errorMessage)): ?>
+            <p class="error-message"><?= $errorMessage ?></p>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

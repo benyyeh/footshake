@@ -16,18 +16,30 @@ $jobPostings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Job Listings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/job-listings.css">
 </head>
 <body>
-    <h1>Job Listings</h1>
+    <!-- Top bar -->
+    <div class="top-bar">
+        <h1>Job Listings</h1>
+        <a href="user_info.php" class="user-info-btn">User Info</a>
+    </div>
+
+    <!-- Job Listings -->
     <ul>
         <?php foreach ($jobPostings as $job): ?>
             <li>
                 <a href="/footshake/job_listing.php?id=<?= $job['id'] ?>">
-                    <?= htmlspecialchars($job['role']) ?> - <?= htmlspecialchars($job['location']) ?> (Posted on <?= $job['date_posted'] ?>)
+                    <div class="job-info"><?= htmlspecialchars($job['role']) ?></div>
+                    <div class="job-location"><?= htmlspecialchars($job['location']) ?></div>
+                    <div class="date-posted">Posted on <?= $job['date_posted'] ?></div>
                 </a>
             </li>
         <?php endforeach; ?>
     </ul>
 </body>
 </html>
+
+
 
