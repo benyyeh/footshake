@@ -51,8 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="title">Footshake</h1>
         <!-- Menu container -->
         <div class="menu-container">
-            <!-- "Go to Applications" button -->
-            <a href="applications.php" class="menu-item">Go to Applications</a>
             <!-- "Search for Jobs" button -->
             <a href="job-listings.php" class="menu-item">Search for Jobs</a>
         </div>
