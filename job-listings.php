@@ -6,8 +6,17 @@ if (!isset($_SESSION['user_id'])) {
 }
 require("connect-db.php");
 error_reporting(E_ALL);
-session_start(); 
-$stmt = $conn->query("SELECT id, location, role, company_id, date_posted, role_type FROM Job_Posting");
+
+// Initialize filters
+$role = isset($_GET['role']) ? '%' . $_GET['role'] . '%' : '%';
+$location = isset($_GET['location']) ? '%' . $_GET['location'] . '%' : '%';
+
+// Prepare the SQL query with dynamic LIKE filters
+$sql = "SELECT id, location, role, company_id, date_posted, role_type FROM Job_Posting WHERE role LIKE :role AND location LIKE :location";
+$params = ['role' => $role, 'location' => $location];
+
+$stmt = $conn->prepare($sql);
+$stmt->execute($params);
 $jobPostings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -26,6 +35,15 @@ $jobPostings = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="user_info.php" class="user-info-btn">User Info</a>
     </div>
 
+    <!-- Filter Form -->
+    <form action="" method="get">
+        <label for="role">Filter by Role:</label>
+        <input type="text" id="role" name="role" placeholder="Enter role" value="<?= htmlspecialchars($_GET['role'] ?? '') ?>">
+        <label for="location">Filter by Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter location" value="<?= htmlspecialchars($_GET['location'] ?? '') ?>">
+        <button type="submit">Filter</button>
+    </form>
+
     <!-- Job Listings -->
     <ul>
         <?php foreach ($jobPostings as $job): ?>
@@ -40,6 +58,3 @@ $jobPostings = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </ul>
 </body>
 </html>
-
-
-
