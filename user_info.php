@@ -4,6 +4,33 @@ require("connect-db.php");
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Ensure that user_id is available in the session
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+
+        try {
+            require("connect-db.php"); 
+
+            $stmt = $conn->prepare("SELECT db_username FROM Users WHERE user_id = :user_id");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                $username = $user['db_username'];
+                $revokeSql = "REVOKE CREATE, ALTER, DROP, INDEX, LOCK TABLES ON jlz8fv.* FROM '$username'@'localhost'";
+                $conn->exec($revokeSql);
+                $conn->exec("FLUSH PRIVILEGES");
+                echo "Privileges successfully revoked for $username.";
+            } 
+        } catch (PDOException $e) {
+            echo "Error revoking privileges: " . $e->getMessage();
+        }
+    }   echo "No user session found.";
+
+}
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -51,8 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="title">Footshake</h1>
         <!-- Menu container -->
         <div class="menu-container">
-            <!-- "Go to Applications" button -->
-            <a href="applications.php" class="menu-item">Go to Applications</a>
             <!-- "Search for Jobs" button -->
             <a href="job-listings.php" class="menu-item">Search for Jobs</a>
         </div>

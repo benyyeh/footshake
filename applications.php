@@ -51,6 +51,10 @@ $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
         <h1 class="title">My Applications</h1>
         <!-- "Find More Jobs" button -->
         <a href="job-listings.php" class="find-jobs-button">Find More Jobs</a>
+
+        <a href="feedback.php" class="feedback-button">Leave Feedback</a>
+
+        <a href="logout.php" class="logout-button">Logout</a>
     </div>
 
     <!-- Main content -->
@@ -76,6 +80,7 @@ $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
                 <input type="submit" value="Update Status">
             </form>
         <?php endforeach; ?>
+
     </div>
 </body>
 </html>

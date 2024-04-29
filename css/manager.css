@@ -1,0 +1,52 @@
+/* General styling for the body and page layout */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Align elements in a column */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Styling for the form and buttons */
+.form-container, .login-button {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px; /* Ensure the buttons and form do not become too wide */
+    margin-bottom: 10px; /* Space between form and button */
+    text-align: center;
+}
+
+/* Style for all buttons including form submission and navigation */
+button, .button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Unique style for "Back to Login" button */
+.login-button .button {
+    background-color: #6c757d; /* Bootstrap's gray */
+    width: auto; /* Auto width based on content */
+    display: inline-block; /* Make sure it behaves like a button */
+}
+
+.login-button .button:hover {
+    background-color: #5a6268; /* A darker shade of gray */
+}

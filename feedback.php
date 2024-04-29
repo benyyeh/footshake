@@ -27,12 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['feedback'])) {
 <head>
     <meta charset="UTF-8">
     <title>Anonymous Feedback</title>
+    <link rel="stylesheet" href="css/feedback.css">
 </head>
 <body>
     <h2>Submit Anonymous Feedback</h2>
     <form method="post">
         <textarea name="feedback" required placeholder="Your feedback..." rows="4" cols="50"></textarea><br>
         <button type="submit">Submit Feedback</button>
+        <a href="applications.php" class="application-button">Return to Applications</a>
+
     </form>
     <?php
     // Display feedback

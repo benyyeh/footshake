@@ -1,0 +1,79 @@
+/* Base styling for the body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Styling for the form and its container */
+.form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* General styling for h3 headers */
+h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Styling for form buttons */
+input[type="submit"] {
+    padding: 10px 20px;
+    margin: 10px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.2s;
+}
+
+/* Specific styles for different buttons to use color coding */
+input[name="dropTables"] {
+    background-color: #dc3545; /* Red for critical action */
+}
+
+input[name="emptyTables"] {
+    background-color: #ffc107; /* Yellow for caution */
+}
+
+input[name="createTables"] {
+    background-color: #28a745; /* Green for safe/positive action */
+}
+
+/* Hover effects for buttons */
+input[type="submit"]:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Confirmation dialog customization might not be possible with CSS alone,
+   this is just for the buttons. */
+/* General button styling */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

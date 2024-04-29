@@ -148,11 +148,13 @@ function createTables()
 
     DELIMITER $$
 
-CREATE PROCEDURE SelectAllJobs (IN parameter_location VARCHAR(255))
-    MODIFIES SQL DATA
-BEGIN
-    SELECT * FROM Job_Posting WHERE `location` = parameter_location;
-END $$
+    CREATE PROCEDURE FilterJobs (IN param_role VARCHAR(255), IN param_location VARCHAR(255))
+    BEGIN
+        SELECT id, location, role, company_id, date_posted, role_type 
+        FROM Job_Posting 
+        WHERE role LIKE CONCAT('%', param_role, '%') 
+        AND location LIKE CONCAT('%', param_location, '%');
+    END $$
 
 DELIMITER ;
 
@@ -181,3 +183,21 @@ DELIMITER ;
         onclick="return confirm('Are you sure you want to empty all tables?');" />
     <input type="submit" name="createTables" value="Create Tables" />
 </form>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Master Dashboard</title>
+    <link rel="stylesheet" href="css/manage-db.css">
+
+    <!-- Back to Login Button -->
+<div class="back-to-login">
+    <a href="login.php" class="button">Back to Login</a>
+</div>
+
+<div class="back-to-login">
+    <a href="populate-job-listings.php" class="button">Populate Job Listings</a>
+</div>
+
+</head>
