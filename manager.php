@@ -2,7 +2,7 @@
 session_start();
 
 // Set the password
-$correctPassword = "MasterSpring2024"; // Replace "yourPasswordHere" with your actual password
+$correctPassword = "MasterSpring2024";
 
 if (isset($_SESSION['authenticated'])) {
     unset($_SESSION['authenticated']);

@@ -8,11 +8,11 @@ require("connect-db.php");
 error_reporting(E_ALL);
 
 // Initialize filters
-$role = isset($_GET['role']) ? '%' . $_GET['role'] . '%' : '%';
-$location = isset($_GET['location']) ? '%' . $_GET['location'] . '%' : '%';
+$role = isset($_GET['role']) ? $_GET['role'] : '';
+$location = isset($_GET['location']) ? $_GET['location'] : '';
 
-// Prepare the SQL query with dynamic LIKE filters
-$sql = "SELECT id, location, role, company_id, date_posted, role_type FROM Job_Posting WHERE role LIKE :role AND location LIKE :location";
+// Call the stored procedure
+$sql = "CALL FilterJobs(:role, :location)";
 $params = ['role' => $role, 'location' => $location];
 
 $stmt = $conn->prepare($sql);

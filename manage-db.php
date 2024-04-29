@@ -148,11 +148,13 @@ function createTables()
 
     DELIMITER $$
 
-CREATE PROCEDURE SelectAllJobs (IN parameter_location VARCHAR(255))
-    MODIFIES SQL DATA
-BEGIN
-    SELECT * FROM Job_Posting WHERE `location` = parameter_location;
-END $$
+    CREATE PROCEDURE FilterJobs (IN param_role VARCHAR(255), IN param_location VARCHAR(255))
+    BEGIN
+        SELECT id, location, role, company_id, date_posted, role_type 
+        FROM Job_Posting 
+        WHERE role LIKE CONCAT('%', param_role, '%') 
+        AND location LIKE CONCAT('%', param_location, '%');
+    END $$
 
 DELIMITER ;
 
