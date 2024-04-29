@@ -62,6 +62,21 @@ input[type="submit"] {
 .find-jobs-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+/* Style for "Leave Feedback" button */
+.feedback-button {
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green color for differentiation */
+  color: #fff;
+  border: 1px solid #fff; /* White border */
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Hover effect for "Leave Feedback" button */
+.feedback-button:hover {
+  background-color: #388E3C; /* Darker green on hover */
+}
 
 /* Style for user information */
 .user-info {
@@ -79,4 +94,21 @@ input[type="submit"] {
 /* Style for user information values */
 .info-value {
   margin-left: 10px;
+}
+
+/* Style for "Logout" button */
+.logout-button {
+  padding: 10px 20px;
+  background-color: #ff4c4c; /* Red color for logout to indicate action */
+  color: #fff;
+  border: 1px solid #fff; /* White border */
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 10px; /* Space between buttons */
+}
+
+/* Hover effect for "Logout" button */
+.logout-button:hover {
+  background-color: #d43d3d; /* Darker red on hover */
 }

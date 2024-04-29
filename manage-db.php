@@ -181,3 +181,17 @@ DELIMITER ;
         onclick="return confirm('Are you sure you want to empty all tables?');" />
     <input type="submit" name="createTables" value="Create Tables" />
 </form>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Master Dashboard</title>
+    <link rel="stylesheet" href="css/manage-db.css">
+
+    <!-- Back to Login Button -->
+<div class="back-to-login">
+    <a href="login.php" class="button">Back to Login</a>
+</div>
+
+</head>

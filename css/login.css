@@ -64,3 +64,21 @@ input[type="password"]:focus {
   text-align: center;
   margin-top: 10px;
 }
+
+/* Button/link styling for Manager access */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px; /* Space from the form */
+  background-color: #4CAF50; /* Green for distinction */
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #45a049; /* Slightly darker on hover */
+}

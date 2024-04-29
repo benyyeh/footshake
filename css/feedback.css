@@ -1,0 +1,86 @@
+/* Base settings for body */
+body {
+    font-family: Arial, sans-serif; /* Consistent font family */
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light grey background for minimal strain on eyes */
+}
+
+/* Styling for the page title */
+h2 {
+    color: #333; /* Dark grey color for better readability */
+    text-align: center; /* Center-align the title */
+}
+
+/* Styling for forms */
+form {
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px;
+    margin: auto; /* Center the form on the page */
+    width: 50%; /* Appropriate width for the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Styling for textarea */
+textarea {
+    width: 100%; /* Full-width to match form width */
+    padding: 10px; /* Padding for text inside textarea */
+    margin-top: 5px; /* Space above the textarea */
+    margin-bottom: 10px; /* Space below the textarea */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Styling for submit button */
+button {
+    width: 100%; /* Full width of its container */
+    padding: 10px 0; /* Padding above and below text */
+    background-color: #5CACEE; /* Soft blue background */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for button */
+button:hover {
+    background-color: #1E90FF; /* Slightly darker blue on hover */
+}
+/* Style for "Return to Applications" button */
+.application-button {
+    display: block; /* Display as block to occupy the full line */
+    width: auto; /* Auto width to fit the text */
+    padding: 8px 16px; /* Padding around the text */
+    margin-top: 10px; /* Margin above the button */
+    background-color: #6c757d; /* Gray background for a neutral look */
+    color: #ffffff; /* White text for readability */
+    text-align: center; /* Center text within the button */
+    text-decoration: none; /* No underline on the text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners for a smooth look */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+/* Hover effect for "Return to Applications" button */
+.application-button:hover {
+    background-color: #5a6268; /* Darker shade of gray on hover */
+}
+
+/* General paragraph styling for feedback display */
+p {
+    background-color: #fff; /* White background for readability */
+    padding: 10px;
+    border: 1px solid #ddd; /* Very light grey border */
+    border-radius: 4px; /* Rounded corners */
+    margin: 10px auto; /* Margin on top and bottom, auto on left and right */
+    width: 50%; /* Matching width with form */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Very light shadow for depth */
+}
+
+/* Bold styling for feedback ID */
+b {
+    color: #555; /* Darker grey for emphasis */
+}
